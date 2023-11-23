@@ -11,5 +11,12 @@ export const createHtml = () => {
   for (let i = 0; i < postList.length; i++) {
     const postContainer = document.createElement("article");
     postsContainer?.appendChild(postContainer);
+    
+    const title = document.createElement('h3');
+    const description = document.createElement('span');
+    const addFavorite = document.createElement('button');
+    addFavorite.innerHTML = 'Favorit';
   }
 };
+
+
