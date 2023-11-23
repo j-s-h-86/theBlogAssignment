@@ -45,6 +45,10 @@ const addNewPost = () => {
     document.getElementById("blogContent") as HTMLTextAreaElement
   ).value;
 
+  if (userTitleInput.length < 1) {
+    return;
+  }
+
   (document.getElementById("titleInput") as HTMLInputElement).value = "";
 
   (document.getElementById("blogContent") as HTMLTextAreaElement).value = "";
