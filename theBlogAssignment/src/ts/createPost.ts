@@ -18,6 +18,10 @@ export let postList = [post1, post2, post3, post4, post5, post6, post7, post8, p
 const postsContainer = document.getElementById("blogPosts");
 
 export const createHtml = () => {
+  if (postsContainer) {
+    postsContainer.innerHTML = "";
+  }
+
   for (let i = 0; i < postList.length; i++) {
     const postContainer = document.createElement("article");
     postsContainer?.appendChild(postContainer);
@@ -46,7 +50,6 @@ export const createHtml = () => {
       updateButton();
     });
     postContainer.appendChild(addFavorite);
-
     function updateButton() {
       if (postList[i].favorite === true) {
         addFavorite.innerHTML = "Sparad";
@@ -55,6 +58,34 @@ export const createHtml = () => {
         }
       }
     }
-
   };
+
+document.getElementById("createPostForm")?.addEventListener("submit", (e) => {
+  e.preventDefault();
+  addNewPost();
+});
+
+const addNewPost = () => {
+  const userTitleInput = (
+    document.getElementById("titleInput") as HTMLInputElement
+  ).value;
+
+  const userBlogContent = (
+    document.getElementById("blogContent") as HTMLTextAreaElement
+  ).value;
+
+  if (userTitleInput.length < 1) {
+    return;
+  }
+
+  (document.getElementById("titleInput") as HTMLInputElement).value = "";
+
+  (document.getElementById("blogContent") as HTMLTextAreaElement).value = "";
+
+  const newPost = new Posts(`${userTitleInput}`, 'ingredients', `${userBlogContent}`);
+  postList.push(newPost);
+  createHtml();
+};
+
+
 
