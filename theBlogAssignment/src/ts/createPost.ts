@@ -1,3 +1,4 @@
+
 import { Posts } from "./models/Posts";
 
 const post1 = new Posts("Äggmacka med tång", "Ingredienser: 24 ägg. 2 skivor Skogaholmslimpa. 1 paket smör.", "Gör så här: Koka äggen. Fördela smöret på skivorna med Skogaholmslimpa. När äggen kokat för länge, placera 12 stycken på vardera macka. Lyft upp dem med tång. Avnjuts bäst tillsammans med din sämsta vän.");
@@ -23,6 +24,10 @@ export const createHtml = () => {
     const title = document.createElement('h3');
     title.innerHTML = postList[i].title;
     postContainer.appendChild(title);
+
+    const showButton = document.createElement("button");
+    showButton.innerHTML = "Visa";
+    postContainer.appendChild(showButton);
 
     const ingredients = document.createElement("p");
     ingredients.innerHTML = postList[i].ingredients;
