@@ -15,32 +15,47 @@ const post10 = new Posts("Gubbröra", "Ingredienser: 1 liten gubbe (stor, om ni 
 
 export let postList = [post1, post2, post3, post4, post5, post6, post7, post8, post9, post10];
 
+let filteredList = postList;
+
 const listFromLocalStorage = localStorage.getItem("postList") || "[]";
 postList = JSON.parse(listFromLocalStorage);
 
 const postsContainer = document.getElementById("blogPosts");
 
-export const createHtml = () => {
+const showFavorites = () => {
+  console.log(postList);
+  filteredList = postList.filter(p => p.favorite)
+  createHtml(filteredList);
+}
+
+const showAll = () => {
+  createHtml(postList);
+}
+
+document.getElementById("favorites")?.addEventListener("click", showFavorites);
+document.getElementById("showAll")?.addEventListener("click", showAll);
+
+export const createHtml = (theList: Posts[]) => {
   localStorage.setItem("postList", JSON.stringify(postList));
 
   if (postsContainer) {
     postsContainer.innerHTML = "";
   }
 
-  for (let i = 0; i < postList.length; i++) {
+  for (let i = 0; i < theList.length; i++) {
     const postContainer = document.createElement("article");
     postsContainer?.appendChild(postContainer);
     
     const title = document.createElement('h3');
-    title.innerHTML = postList[i].title;
+    title.innerHTML = theList[i].title;
     postContainer.appendChild(title);
 
     const ingredients = document.createElement("p");
-    ingredients.innerHTML = postList[i].ingredients;
+    ingredients.innerHTML = theList[i].ingredients;
     postContainer.appendChild(ingredients);
 
     const description = document.createElement('span');
-    description.innerHTML = postList[i].description;
+    description.innerHTML = theList[i].description;
     postContainer.appendChild(description);
 
     // Change favorites
@@ -53,7 +68,7 @@ export const createHtml = () => {
     postContainer.appendChild(addFavorite);
 
     function updateButton() {
-      if (postList[i].favorite === true) {
+      if (theList[i].favorite === true) {
         addFavorite.innerHTML = "Sparad";
         } else {
         addFavorite.innerHTML = 'Favorit';
@@ -91,7 +106,8 @@ const addNewPost = () => {
 
   const newPost = new Posts(`${userTitleInput}`, `${userIngredients}`, `${userBlogContent}`);
   postList.push(newPost);
-  createHtml();
+
+  createHtml(postList);
 };
 
 

@@ -1,6 +1,6 @@
 import "./../scss/style.scss";
-import { createHtml } from "./createPost";
+import { createHtml, postList } from "./createPost";
 
-createHtml();
+createHtml(postList);
 
 
