@@ -1,5 +1,6 @@
 
 import { Posts } from "./models/Posts";
+import { changeFavorite } from "./changeFavorite";
 
 const post1 = new Posts("Äggmacka med tång", "Ingredienser: 24 ägg. 2 skivor Skogaholmslimpa. 1 paket smör.", "Gör så här: Koka äggen. Fördela smöret på skivorna med Skogaholmslimpa. När äggen kokat för länge, placera 12 stycken på vardera macka. Lyft upp dem med tång. Avnjuts bäst tillsammans med din sämsta vän.");
 const post2 = new Posts("Råkostsallad", "Ingredienser: 1 Morot. 1 Palsternacka. 1 Kålhuvud. 1 Gul lök. 1 Gurka. 1 Potatis.", "Gör så här: Riv grönsakerna, blanda om, och släng bort. Gå till lokalkrogen och köp pizza istället.");
@@ -12,7 +13,7 @@ const post8 = new Posts("Potatis på tyskt vis", "Ingredienzen: 1 kartopfel.", "
 const post9 = new Posts("Helstekt ko eller get", "Ingredienser: 1 ko (eller en get).", "Gör så här: Placera kon (eller geten) i pannan. Stek tills den är helt stekt. Serveras med grönsaker, frukt, pasta, potatis eller pollenta. Kan vara gott med saffransdoftande ris och balsamvinäger. En grönsallad är ju trevligt, kanske gurka, grön paprika, ärtor, kruksallat, avocado, gröna äpplen för fräschören. Ätes ej ensam då en hel ko (eller get), tar väldigt lång tid att äta.");
 const post10 = new Posts("Gubbröra", "Ingredienser: 1 liten gubbe (stor, om ni är flera). Någon typ av röra (förslagsvis en god).", "Gör så här: Häll röran över gubben låt honom servera er en middag bestående av något helt annat.");
 
-let postList = [post1, post2, post3, post4, post5, post6, post7, post8, post9, post10];
+export let postList = [post1, post2, post3, post4, post5, post6, post7, post8, post9, post10];
 
 const postsContainer = document.getElementById("blogPosts");
 
@@ -37,11 +38,23 @@ export const createHtml = () => {
     description.innerHTML = postList[i].description;
     postContainer.appendChild(description);
 
+    // Change favorites
     const addFavorite = document.createElement('button');
     addFavorite.innerHTML = 'Favorit';
+    addFavorite.addEventListener("click", () => {
+      changeFavorite(i);
+      updateButton();
+    });
     postContainer.appendChild(addFavorite);
 
-  }
-};
+    function updateButton() {
+      if (postList[i].favorite === true) {
+        addFavorite.innerHTML = "Sparad";
+        } else {
+        addFavorite.innerHTML = 'Favorit';
+        }
+      }
+    }
 
+  };
 
