@@ -1,0 +1,30 @@
+body{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+input#titleInput{
+  display: flex;
+  justify-content: left;
+  width: 200px;
+  border-radius: 10px;
+}
+
+textarea#blogContent{
+  display: flex;
+  justify-content: left;
+  height: 100px;
+  width: 200px;
+  border-radius: 10px;
+}
+
+button.blog-button{
+  border-radius: 10px;
+  color: gray;
+}
+
+footer{
+  margin-top: auto;
+
+}
