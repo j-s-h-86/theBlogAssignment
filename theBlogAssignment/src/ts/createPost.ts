@@ -2,7 +2,7 @@
 import { Posts } from "./models/Posts";
 import { changeFavorite } from "./changeFavorite";
 
-const post1 = new Posts("Äggmacka med tång", "Ingredienser: 24 ägg. 2 skivor Skogaholmslimpa. 1 paket smör.", "Gör så här: Koka äggen. Fördela smöret på skivorna med Skogaholmslimpa. När äggen kokat för länge, placera 12 stycken på vardera macka. Lyft upp dem med tång. Avnjuts bäst tillsammans med din sämsta vän.");
+const post1 = new Posts("Äggmacka med tång", "Ingredienser: 24 ägg. 2 skivor Skogaholmslimpa. 1 paket smör", "Gör så här: Koka äggen. Fördela smöret på skivorna med Skogaholmslimpa.När äggen kokat för länge, placera 12 stycken på vardera macka. Lyft upp dem med tång. Avnjuts bäst tillsammans med din sämsta vän.");
 const post2 = new Posts("Råkostsallad", "Ingredienser: 1 Morot. 1 Palsternacka. 1 Kålhuvud. 1 Gul lök. 1 Gurka. 1 Potatis.", "Gör så här: Riv grönsakerna, blanda om, och släng bort. Gå till lokalkrogen och köp pizza istället.");
 const post3 = new Posts("Gryta på fläsk", "Ingredienser: 100 liter vatten. 1 hel gris. 19 morötter. 23 gula lökar. 1 lagerblad.", "Gör inte så här: Trimma grisen och rensa avgassystemet. Fyll ett badkar till 1/19 med smör (riktigt fett smör). Gör upp en eld under badkaret. När smöret fräst klart, släng i grisen. När svinet har en fin yta, ös på med 100L vatten och grönsakerna. Låt koka i sju veckor. Besök simhallen för att hålla efter hygienen. Serveras inte till folk du känner eftersom du tillagat rätten i badkaret.");
 const post4 = new Posts("Ris på maltesisk falk", "Ingredienser: 1 paket ris. 2 maltesiska falkar (hane och hona).", "Gör så här: Para falkarna. Se till att honan lägger ägg. Låt äggen värpas. Koka ris. Lägg riset i en hög på tallriken. Placera falkar ovanpå (motsäger recepttiteln, men tvärtom leder snabbt till dålig stämning mellan dig och falkarna). Servera med skyddsshandskar och monockel.");
@@ -15,9 +15,10 @@ const post10 = new Posts("Gubbröra", "Ingredienser: 1 liten gubbe (stor, om ni 
 
 export let postList = [post1, post2, post3, post4, post5, post6, post7, post8, post9, post10];
 
+
 let filteredList = postList;
 
-const listFromLocalStorage = localStorage.getItem("postList") || "[]";
+const listFromLocalStorage = localStorage.getItem("postList") || JSON.stringify(postList);
 postList = JSON.parse(listFromLocalStorage);
 
 const postsContainer = document.getElementById("blogPosts");
@@ -61,11 +62,10 @@ export const createHtml = (theList: Posts[]) => {
     // Change favorites
     const addFavorite = document.createElement('button');
     addFavorite.innerHTML = 'Favorit';
+    postContainer.appendChild(addFavorite);
     addFavorite.addEventListener("click", () => {
       changeFavorite(i);
-      // updateButton();
     });
-    postContainer.appendChild(addFavorite);
 
     function updateButton() {
       if (theList[i].favorite === true) {
@@ -106,7 +106,6 @@ const addNewPost = () => {
 
   const newPost = new Posts(`${userTitleInput}`, `${userIngredients}`, `${userBlogContent}`);
   postList.push(newPost);
-
   createHtml(postList);
 };
 
