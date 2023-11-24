@@ -71,8 +71,10 @@ const addNewPost = () => {
   ).value;
 
   const userBlogContent = (
-    document.getElementById("blogContent") as HTMLTextAreaElement
+    document.getElementById("ingredients") as HTMLTextAreaElement
   ).value;
+
+  const userIngredients = (document.getElementById("modus") as HTMLTextAreaElement).value;
 
   if (userTitleInput.length < 1) {
     return;
@@ -80,9 +82,11 @@ const addNewPost = () => {
 
   (document.getElementById("titleInput") as HTMLInputElement).value = "";
 
-  (document.getElementById("blogContent") as HTMLTextAreaElement).value = "";
+  (document.getElementById("ingredients") as HTMLTextAreaElement).value = "";
 
-  const newPost = new Posts(`${userTitleInput}`, 'ingredients', `${userBlogContent}`);
+  (document.getElementById("modus") as HTMLTextAreaElement).value = "";
+
+  const newPost = new Posts(`${userTitleInput}`, `${userIngredients}`, `${userBlogContent}`);
   postList.push(newPost);
   createHtml();
 };
