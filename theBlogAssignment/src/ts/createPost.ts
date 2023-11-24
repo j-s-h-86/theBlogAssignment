@@ -15,7 +15,7 @@ const post10 = new Posts("Gubbröra", "Ingredienser: 1 liten gubbe (stor, om ni 
 
 export let postList = [post1, post2, post3, post4, post5, post6, post7, post8, post9, post10];
 
-const listFromLocalStorage = localStorage.getItem("postList") || "[]";
+const listFromLocalStorage = localStorage.getItem("postList") || JSON.stringify(postList);
 postList = JSON.parse(listFromLocalStorage);
 
 const postsContainer = document.getElementById("blogPosts");
