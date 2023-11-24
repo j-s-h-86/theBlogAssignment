@@ -15,9 +15,14 @@ const post10 = new Posts("Gubbröra", "Ingredienser: 1 liten gubbe (stor, om ni 
 
 export let postList = [post1, post2, post3, post4, post5, post6, post7, post8, post9, post10];
 
+const listFromLocalStorage = localStorage.getItem("postList") || "[]";
+postList = JSON.parse(listFromLocalStorage);
+
 const postsContainer = document.getElementById("blogPosts");
 
 export const createHtml = () => {
+  localStorage.setItem("postList", JSON.stringify(postList));
+
   if (postsContainer) {
     postsContainer.innerHTML = "";
   }
@@ -43,9 +48,10 @@ export const createHtml = () => {
     addFavorite.innerHTML = 'Favorit';
     addFavorite.addEventListener("click", () => {
       changeFavorite(i);
-      updateButton();
+      // updateButton();
     });
     postContainer.appendChild(addFavorite);
+
     function updateButton() {
       if (postList[i].favorite === true) {
         addFavorite.innerHTML = "Sparad";
@@ -53,6 +59,7 @@ export const createHtml = () => {
         addFavorite.innerHTML = 'Favorit';
         }
       }
+    updateButton();
     }
   };
 
