@@ -20,40 +20,38 @@ postList = JSON.parse(listFromLocalStorage);
 
 const postsContainer = document.getElementById("blogPosts");
 
-export const createHtml = () => {
+export const createHtml = (theList: Posts[]) => {
   localStorage.setItem("postList", JSON.stringify(postList));
 
   if (postsContainer) {
     postsContainer.innerHTML = "";
   }
 
-  for (let i = 0; i < postList.length; i++) {
+  for (let i = 0; i < theList.length; i++) {
     const postContainer = document.createElement("article");
     postsContainer?.appendChild(postContainer);
     
     const title = document.createElement('h3');
-    title.innerHTML = postList[i].title;
+    title.innerHTML = theList[i].title;
     postContainer.appendChild(title);
 
+    const addFavorite = document.createElement('button');
+    addFavorite.innerHTML = 'Favorit';
+    postContainer.appendChild(addFavorite);
+    addFavorite.addEventListener("click", () => {
+      changeFavorite(i);
+    });
+
     const ingredients = document.createElement("p");
-    ingredients.innerHTML = postList[i].ingredients;
+    ingredients.innerHTML = theList[i].ingredients;
     postContainer.appendChild(ingredients);
 
     const description = document.createElement('span');
-    description.innerHTML = postList[i].description;
+    description.innerHTML = theList[i].description;
     postContainer.appendChild(description);
 
-    // Change favorites
-    const addFavorite = document.createElement('button');
-    addFavorite.innerHTML = 'Favorit';
-    addFavorite.addEventListener("click", () => {
-      changeFavorite(i);
-      // updateButton();
-    });
-    postContainer.appendChild(addFavorite);
-
     function updateButton() {
-      if (postList[i].favorite === true) {
+      if (theList[i].favorite === true) {
         addFavorite.innerHTML = "Sparad";
         } else {
         addFavorite.innerHTML = 'Favorit';
@@ -91,7 +89,7 @@ const addNewPost = () => {
 
   const newPost = new Posts(`${userTitleInput}`, `${userIngredients}`, `${userBlogContent}`);
   postList.push(newPost);
-  createHtml();
+  createHtml(postList);
 };
 
 
