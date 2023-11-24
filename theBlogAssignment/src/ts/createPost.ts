@@ -30,10 +30,6 @@ export const createHtml = () => {
     title.innerHTML = postList[i].title;
     postContainer.appendChild(title);
 
-    const showButton = document.createElement("button");
-    showButton.innerHTML = "Visa";
-    postContainer.appendChild(showButton);
-
     const ingredients = document.createElement("p");
     ingredients.innerHTML = postList[i].ingredients;
     postContainer.appendChild(ingredients);
